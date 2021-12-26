@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-5">
+      <div>
+
+        <form [formGroup]="form">
+          <mat-form-field dir="rtl">
+            <mat-label>نام کاربری</mat-label>
+            <input placeholder="admin" matInput type="text" formControlName="username">
+            <mat-error *ngIf="control.username">{{getErrorMessage('username')}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mt-2" dir="rtl">
+            <mat-label>رمز عبور</mat-label>
+            <input type="password" placeholder="********" matInput type="password" formControlName="password">
+            <mat-error *ngIf="control.password">{{getErrorMessage('password')}}</mat-error>
+          </mat-form-field>
+
+          <button class="d-block btn btn-grad mt-2" type="submit" (click)="login()">ورود</button>
+          <!-- [disabled]="!AppTitle" -->
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<app-footer [AppVersion]="'3'"></app-footer>
