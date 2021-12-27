@@ -1,31 +1,148 @@
 {
   "version": 1,
   "projects": {
-    "app": {
+    "Common": {
       "projectType": "application",
-      "root": "apps/app",
-      "sourceRoot": "apps/app/src",
-      "prefix": "web-fw",
+      "root": "apps/Common",
+      "sourceRoot": "apps/Common/src",
+      "prefix": "FanavaranSolution",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/app",
-            "index": "apps/app/src/index.html",
-            "main": "apps/app/src/main.ts",
-            "polyfills": "apps/app/src/polyfills.ts",
-            "tsConfig": "apps/app/tsconfig.app.json",
+            "outputPath": "dist/apps/Common",
+            "index": "apps/Common/src/index.html",
+            "main": "apps/Common/src/main.ts",
+            "polyfills": "apps/Common/src/polyfills.ts",
+            "tsConfig": "apps/Common/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["apps/Common/src/favicon.ico", "apps/Common/src/assets"],
+            "styles": ["apps/Common/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/Common/src/environments/environment.ts",
+                  "with": "apps/Common/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "Common:build:production"
+            },
+            "development": {
+              "browserTarget": "Common:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "Common:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/Common/src/**/*.ts",
+              "apps/Common/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/Common"],
+          "options": {
+            "jestConfig": "apps/Common/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "Common-e2e": {
+      "root": "apps/Common-e2e",
+      "sourceRoot": "apps/Common-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/Common-e2e/cypress.json",
+            "devServerTarget": "Common:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "Common:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/Common-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["Common"]
+    },
+    "FanavaranWebApp": {
+      "projectType": "application",
+      "root": "apps/FanavaranWebApp",
+      "sourceRoot": "apps/FanavaranWebApp/src",
+      "prefix": "FanavaranSolution",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/FanavaranWebApp",
+            "index": "apps/FanavaranWebApp/src/index.html",
+            "main": "apps/FanavaranWebApp/src/main.ts",
+            "polyfills": "apps/FanavaranWebApp/src/polyfills.ts",
+            "tsConfig": "apps/FanavaranWebApp/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/app/src/favicon.ico",
-              "apps/app/src/assets"
+              "apps/FanavaranWebApp/src/favicon.ico",
+              "apps/FanavaranWebApp/src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/app/src/styles.scss"
+              "apps/FanavaranWebApp/src/styles.scss"
             ],
             "scripts": []
           },
@@ -45,8 +162,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/app/src/environments/environment.ts",
-                  "with": "apps/app/src/environments/environment.prod.ts"
+                  "replace": "apps/FanavaranWebApp/src/environments/environment.ts",
+                  "with": "apps/FanavaranWebApp/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -66,10 +183,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "FanavaranWebApp:build:production"
             },
             "development": {
-              "browserTarget": "app:build:development"
+              "browserTarget": "FanavaranWebApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,90 +194,75 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "FanavaranWebApp:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/app/src/**/*.ts",
-              "apps/app/src/**/*.html"
+              "apps/FanavaranWebApp/src/**/*.ts",
+              "apps/FanavaranWebApp/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/app"
-          ],
+          "outputs": ["coverage/apps/FanavaranWebApp"],
           "options": {
-            "jestConfig": "apps/app/jest.config.js",
+            "jestConfig": "apps/FanavaranWebApp/jest.config.js",
             "passWithNoTests": true
           }
         }
       },
       "tags": []
     },
-    "app-e2e": {
-      "root": "apps/app-e2e",
-      "sourceRoot": "apps/app-e2e/src",
+    "FanavaranWebApp-e2e": {
+      "root": "FanavaranWebApp/app-e2e",
+      "sourceRoot": "apps/FanavaranWebApp-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/app-e2e/cypress.json",
-            "devServerTarget": "app:serve:development"
+            "cypressConfig": "apps/FanavaranWebApp-e2e/cypress.json",
+            "devServerTarget": "FanavaranWebApp:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app:serve:production"
+              "devServerTarget": "FanavaranWebApp:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/FanavaranWebApp-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "app"
-      ]
+      "implicitDependencies": ["FanavaranWebApp"]
     },
-    "common": {
+    "Fire": {
       "projectType": "application",
-      "root": "apps/common",
-      "sourceRoot": "apps/common/src",
-      "prefix": "web-fw",
+      "root": "apps/SubSys/Fire",
+      "sourceRoot": "apps/SubSys/Fire/src",
+      "prefix": "FanavaranSolution",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/common",
-            "index": "apps/common/src/index.html",
-            "main": "apps/common/src/main.ts",
-            "polyfills": "apps/common/src/polyfills.ts",
-            "tsConfig": "apps/common/tsconfig.app.json",
+            "outputPath": "dist/apps/SubSys/Fire",
+            "index": "apps/SubSys/Fire/src/index.html",
+            "main": "apps/SubSys/Fire/src/main.ts",
+            "polyfills": "apps/SubSys/Fire/src/polyfills.ts",
+            "tsConfig": "apps/SubSys/Fire/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/common/src/favicon.ico",
-              "apps/common/src/assets"
-            ],
-            "styles": [
-              "apps/common/src/styles.scss"
-            ],
+            "assets": ["apps/SubSys/Fire/src/favicon.ico", "apps/SubSys/Fire/src/assets"],
+            "styles": ["apps/SubSys/Fire/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -179,8 +281,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/common/src/environments/environment.ts",
-                  "with": "apps/common/src/environments/environment.prod.ts"
+                  "replace": "apps/SubSys/Fire/src/environments/environment.ts",
+                  "with": "apps/SubSys/Fire/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -200,10 +302,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "common:build:production"
+              "browserTarget": "Fire:build:production"
             },
             "development": {
-              "browserTarget": "common:build:development"
+              "browserTarget": "Fire:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -211,90 +313,75 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "common:build"
+            "browserTarget": "Fire:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/common/src/**/*.ts",
-              "apps/common/src/**/*.html"
+              "apps/SubSys/Fire/src/**/*.ts",
+              "apps/SubSys/Fire/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/common"
-          ],
+          "outputs": ["coverage/apps/SubSys/Fire"],
           "options": {
-            "jestConfig": "apps/common/jest.config.js",
+            "jestConfig": "apps/SubSys/Fire/jest.config.js",
             "passWithNoTests": true
           }
         }
       },
       "tags": []
     },
-    "common-e2e": {
-      "root": "apps/common-e2e",
-      "sourceRoot": "apps/common-e2e/src",
+    "Fire-e2e": {
+      "root": "apps/SubSys/Fire-e2e",
+      "sourceRoot": "apps/SubSys/Fire-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/common-e2e/cypress.json",
-            "devServerTarget": "common:serve:development"
+            "cypressConfig": "apps/SubSys/Fire-e2e/cypress.json",
+            "devServerTarget": "Fire:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "common:serve:production"
+              "devServerTarget": "Fire:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/common-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/SubSys/Fire-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "common"
-      ]
+      "implicitDependencies": ["Fire"]
     },
-    "tools": {
+    "WebFW": {
       "projectType": "application",
-      "root": "apps/tools",
-      "sourceRoot": "apps/tools/src",
-      "prefix": "web-fw",
+      "root": "apps/WebFW",
+      "sourceRoot": "apps/WebFW/src",
+      "prefix": "FanavaranSolution",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/tools",
-            "index": "apps/tools/src/index.html",
-            "main": "apps/tools/src/main.ts",
-            "polyfills": "apps/tools/src/polyfills.ts",
-            "tsConfig": "apps/tools/tsconfig.app.json",
+            "outputPath": "dist/apps/WebFW",
+            "index": "apps/WebFW/src/index.html",
+            "main": "apps/WebFW/src/main.ts",
+            "polyfills": "apps/WebFW/src/polyfills.ts",
+            "tsConfig": "apps/WebFW/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/tools/src/favicon.ico",
-              "apps/tools/src/assets"
-            ],
-            "styles": [
-              "apps/tools/src/styles.scss"
-            ],
+            "assets": ["apps/WebFW/src/favicon.ico", "apps/WebFW/src/assets"],
+            "styles": ["apps/WebFW/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -313,8 +400,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/tools/src/environments/environment.ts",
-                  "with": "apps/tools/src/environments/environment.prod.ts"
+                  "replace": "apps/WebFW/src/environments/environment.ts",
+                  "with": "apps/WebFW/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -334,10 +421,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "tools:build:production"
+              "browserTarget": "WebFW:build:production"
             },
             "development": {
-              "browserTarget": "tools:build:development"
+              "browserTarget": "WebFW:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -345,64 +432,175 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tools:build"
+            "browserTarget": "WebFW:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/tools/src/**/*.ts",
-              "apps/tools/src/**/*.html"
+              "apps/WebFW/src/**/*.ts",
+              "apps/WebFW/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/tools"
-          ],
+          "outputs": ["coverage/apps/WebFW"],
           "options": {
-            "jestConfig": "apps/tools/jest.config.js",
+            "jestConfig": "apps/WebFW/jest.config.js",
             "passWithNoTests": true
           }
         }
       },
       "tags": []
     },
-    "tools-e2e": {
-      "root": "apps/tools-e2e",
-      "sourceRoot": "apps/tools-e2e/src",
+    "WebFW-e2e": {
+      "root": "apps/WebFW-e2e",
+      "sourceRoot": "apps/WebFW-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/tools-e2e/cypress.json",
-            "devServerTarget": "tools:serve:development"
+            "cypressConfig": "apps/WebFW-e2e/cypress.json",
+            "devServerTarget": "WebFW:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tools:serve:production"
+              "devServerTarget": "WebFW:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/tools-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/WebFW-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "tools"
-      ]
+      "implicitDependencies": ["WebFW"]
+    },
+    "Car": {
+      "projectType": "application",
+      "root": "apps/SubSys/Car",
+      "sourceRoot": "apps/SubSys/Car/src",
+      "prefix": "FanavaranSolution",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/SubSys/Car",
+            "index": "apps/SubSys/Car/src/index.html",
+            "main": "apps/SubSys/Car/src/main.ts",
+            "polyfills": "apps/SubSys/Car/src/polyfills.ts",
+            "tsConfig": "apps/SubSys/Car/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["apps/SubSys/Car/src/favicon.ico", "apps/SubSys/Car/src/assets"],
+            "styles": ["apps/SubSys/Car/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/SubSys/Car/src/environments/environment.ts",
+                  "with": "apps/SubSys/Car/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "Car:build:production"
+            },
+            "development": {
+              "browserTarget": "Car:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "Car:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/SubSys/Car/src/**/*.ts",
+              "apps/SubSys/Car/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/SubSys/Car"],
+          "options": {
+            "jestConfig": "apps/SubSys/Car/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "Car-e2e": {
+      "root": "apps/SubSys/Car-e2e",
+      "sourceRoot": "apps/SubSys/Car-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/SubSys/Car-e2e/cypress.json",
+            "devServerTarget": "Car:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "Car:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/SubSys/Car-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["Car"]
     }
   }
 }
