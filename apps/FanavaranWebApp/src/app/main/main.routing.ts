@@ -1,6 +1,6 @@
 import { MainComponent } from './main-body/body/main.component';
-import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from '../auth/providers/auth.guard';
+import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

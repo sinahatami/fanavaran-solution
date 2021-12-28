@@ -1,0 +1,40 @@
+<button mat-icon-button class="dot-btn" [matMenuTriggerFor]="menu" matTooltip="مشاهده دکمه های عملیات">
+  <i class="fa fa-ellipsis-h"></i>
+</button>
+<mat-menu #menu="matMenu" dir="rtl">
+  <button *ngIf="editAction" mat-menu-item (click)="onClick(editAction, $event)">
+    <i matTooltip="ویرایش این سطر" matTooltipClass="blue-tooltip" class="fa fa-pen"></i>
+    <span class="mr-8">ویرایش</span>
+  </button>
+  <button *ngIf="deleteAction" mat-menu-item (click)="onClick(deleteAction, $event)">
+    <i matTooltip="پاک کردن این سطر" matTooltipClass="red-tooltip" class="fa fa-trash"></i>
+    <span class="mr-8">حذف</span>
+  </button>
+  <button *ngIf="accessAction" mat-menu-item (click)="onClick(accessAction, $event)">
+    <!-- matTooltip="پاک کردن این سطر" matTooltipClass="red-tooltip" -->
+    <i class="fa fa-user-shield"></i>
+    <span class="mr-8">تعیین دسترسی</span>
+  </button>
+  <button *ngIf="orgTreeAction" mat-menu-item (click)="onClick(orgTreeAction, $event)">
+    <i matTooltip="مشاهده درخت سازمانی" matTooltipClass="green-tooltip" class="fa fa-tree"></i>
+    <span class="mr-8">درخت سازمانی</span>
+  </button>
+  <button *ngIf="costCenterTreeAction" mat-menu-item (click)="onClick(costCenterTreeAction, $event)">
+    <i matTooltip="مشاهده درخت هزینه" matTooltipClass="green-tooltip" class="fa fa-tree"></i>
+    <span class="mr-8">درخت هزینه</span>
+  </button>
+  <ng-container *ngIf="!params.hideLogs">
+    <button mat-menu-item [matTooltip]="miniLog" (mouseenter)="getMiniLog()" matTooltipClass="orange-tooltip">
+      <i class="fa fa-info"></i>
+      <span class="mr-8">رویداد های جزئی</span>
+    </button>
+    <button mat-menu-item (click)="onShowLog()">
+      <i matTooltipClass="purple-tooltip" matTooltip="مشاهده کلیه رویداد های این سطر" class="fa fa-receipt"></i>
+      <span class="mr-8">رویداد های کلی</span>
+    </button>
+  </ng-container>
+</mat-menu>
+
+<div>
+  <log *ngIf="showLog" [tableName]="params.tableName" [ID]="params.node.data.Id" (closed)="onCloseLog()"></log>
+</div>

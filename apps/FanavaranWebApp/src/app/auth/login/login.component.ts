@@ -2,6 +2,7 @@ import { AuthService } from '../providers/auth.service'
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
+import { Router } from '@angular/router'
 
 @Component({
   templateUrl: './login.component.html',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    localStorage.clear()
+    /* localStorage.clear()
     sessionStorage.clear()
     const formData = new FormData()
     formData.append('grant_type', 'password')
@@ -40,8 +41,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(formData).subscribe((res: any) => {
       this.authService.setAuthDataToLocalStorage(res.Data)
       this.authService.routeToDashboard()
-    })
+    }) */
 
+    this.router.navigateByUrl("main")
     /* this.authService.signinRedirect() */
   }
 
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
     }, _ => this.showSmallSpinner = false)
   }
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService) { }
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     // this.setBgImg()
