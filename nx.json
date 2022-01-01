@@ -1,5 +1,5 @@
 {
-  "npmScope": "FanavaranSolution",
+  "npmScope": "fanavaran-solution",
   "affected": {
     "defaultBase": "master"
   },
@@ -16,15 +16,14 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
         "cacheableOperations": [
           "build",
           "lint",
           "test",
           "e2e"
-        ],
-        "accessToken": "OTI2MmRiMjUtZTZjNS00MmZlLWJlZGYtYzQ0ZGFmYjNlNzQ4fHJlYWQtd3JpdGU="
+        ]
       }
     }
   },
@@ -51,5 +50,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "FanavaranWebApp"
+  "defaultProject": "fanavaran-web-app"
 }
