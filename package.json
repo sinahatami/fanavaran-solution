@@ -5,8 +5,8 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
-    "start": "nx serve",
-    "build": "nx build",
+    "dev": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng serve --o",
+    "analyze": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod --aot --optimization --build-optimizer --vendor-chunk --common-chunk --delete-output-path --buildOptimizer --extract-licenses  --source-map=false --stats-json && webpack-bundle-analyzer dist/stats.json",
     "test": "nx test"
   },
   "private": true,
