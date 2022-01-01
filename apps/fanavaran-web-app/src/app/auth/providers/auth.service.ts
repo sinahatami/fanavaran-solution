@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   routeToDashboard() {
-    this.router.navigateByUrl('/dashboard')
+    this.router.navigateByUrl('/main/dashboard')
   }
 
   removeLocalStorage() {

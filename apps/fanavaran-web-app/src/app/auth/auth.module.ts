@@ -15,7 +15,7 @@ import { AuthService } from './providers/auth.service'
 const MATERIALS = [
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule,
+  MatButtonModule
 ]
 
 @NgModule({

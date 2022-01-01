@@ -13,8 +13,8 @@ export const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        //  path: 'detail-info', loadChildren: () => import('./pages/detail-info/detail-info.module').then(m => m.DetailInfoModule),
-        /* canActivate: [AuthGuardService] */
+        path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+        canActivate: [AuthGuardService]
       },
     ]
   }
