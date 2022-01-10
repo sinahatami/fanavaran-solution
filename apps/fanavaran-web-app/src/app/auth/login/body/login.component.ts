@@ -1,8 +1,8 @@
-import { AuthService } from '../providers/auth.service'
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
 import { Router } from '@angular/router'
+import { AuthService } from '../../providers/auth.service'
 
 @Component({
   templateUrl: './login.component.html',
@@ -37,14 +37,18 @@ export class LoginComponent implements OnInit {
     formData.append('password', this.form.controls.password.value)
     formData.append('username', this.form.controls.username.value)
     formData.append('username', this.form.controls.username.value)
+    */
+    this.authService.getLogin().subscribe((res: any) => {
+      const firstToken = res.headers.get('apptoken')
 
-    this.authService.login(formData).subscribe((res: any) => {
-      this.authService.setAuthDataToLocalStorage(res.Data)
-      this.authService.routeToDashboard()
-    }) */
 
-    this.router.navigateByUrl("main")
-    /* this.authService.signinRedirect() */
+      //  this.authService.setAuthDataToLocalStorage(res.Data)
+      this.authService.loginPost(this.form.value, firstToken).subscribe((res: any) => {
+        localStorage.setItem('token', res.headers.get('authenticationtoken'))
+        localStorage.setItem('sessionId', res.headers.get('sessionid'))
+        this.authService.routeToDashboard()
+      })
+    })
   }
 
   HasCaptcha: boolean = false
@@ -62,7 +66,7 @@ export class LoginComponent implements OnInit {
     // this.setBgImg()
     if (this.authService.token && !this.authService.isTokenExpired()) return this.authService.routeToDashboard()
     else this.authService.removeLocalStorage()
-    this.getAppInfo()
+    //this.getAppInfo()
     this.form.reset()
   }
 

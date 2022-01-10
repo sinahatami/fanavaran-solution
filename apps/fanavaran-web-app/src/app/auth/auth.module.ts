@@ -7,9 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
-
-import { LoginComponent } from './login/login.component'
-import { FooterComponent } from './footer/footer.component'
+import { LoginComponent } from './login/body/login.component'
+import { FooterComponent } from './login/footer/footer.component'
 import { AuthService } from './providers/auth.service'
 
 const MATERIALS = [

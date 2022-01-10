@@ -5,11 +5,18 @@ import { environment } from 'apps/fanavaran-web-app/src/environments/environment
 //import { LocalStorageClass } from 'src/app/common/scripts/localStorage'
 //import { environment } from 'src/environments/environment'
 
-@Injectable()
-export class AuthService {
-  year: any
-  month: any
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'appname': 'Bime', 'secret': 'aA@12345' }),
+  observe: 'response' as 'response'
+}
 
+const headers = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  observe: 'response' as 'response'
+}
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
   canCallRefreshService = false
 
   refreshToken(body: any) {
@@ -20,12 +27,10 @@ export class AuthService {
     headers = { headers: headers }
     this.wantToRefresh = false
     this.canCallRefreshService = true
-    return this.http.post(`${environment.API_URL}Users/Token/Refresh`, body, headers)
+    return this.http.post(`Users/Token/Refresh`, body, headers)
   }
 
   setAuthDataToLocalStorage(data: any) {
-    this.year = data.LastYear
-    this.month = data.LastMonth
     localStorage.setItem('Token', `Bearer ${data.access_token}`)
     localStorage.setItem('ExpireToken', JSON.stringify(new Date().valueOf() + data.expires_in * 1000))
     localStorage.setItem('OwnerPID', data.Pid)
@@ -44,9 +49,17 @@ export class AuthService {
 
   isTokenExpired(): boolean { return this.expired < new Date().valueOf() }
 
-  login(body) { return this.http.post(`${environment.API_URL}Users/token`, body) }
+  getLogin() { return this.http.post(`api/Subsystems/Tools/EITAuthenticationBase/GetAppToken`, null, httpOptions) }
 
-  getAppInfo() { return this.http.get(`${environment.API_URL}Users/GetAppInfo`) }
+  loginPost(userpass, token) {
+    headers.headers = new HttpHeaders({ 'appToken': token, 'username': userpass.username, 'password': userpass.password })
+    //headers.headers.set('appToken', token)
+    //headers.headers.set('username', userpass.username)
+    //headers.headers.set('password', userpass.password)
+    return this.http.post(`api/Subsystems/Tools/EITAuthenticationBase/Login`, null, headers)
+  }
+
+  getAppInfo() { return this.http.get(`Users/GetAppInfo`) }
 
   logout() {
     //this.tabService.tabs = []
@@ -60,7 +73,7 @@ export class AuthService {
   }
 
   routeToDashboard() {
-    this.router.navigateByUrl('/main/dashboard')
+    this.router.navigateByUrl('pages/dashboard')
   }
 
   removeLocalStorage() {
@@ -71,17 +84,6 @@ export class AuthService {
   }
 
   // addLocalStorage(items) { this.localStorageClass.setItems(items) }
-
-  private ConvertToLowerCase(data) {
-    var key, keys = Object.keys(data)
-    var n = keys.length
-    var newobj = {}
-    while (n--) {
-      key = keys[n]
-      newobj[key.toLowerCase()] = data[key]
-    }
-    return newobj
-  }
 
   constructor(private http: HttpClient, private router: Router/* , private tabService: TabService */) { }
 }

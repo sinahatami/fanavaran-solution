@@ -3,5 +3,5 @@
 export const environment = {
   //appVersion: date,
   production: false,
-  API_URL: "http://82.99.213.150:1002/payrollapi/api/v1/",
+  //  API_URL: "https://localhost:44305/bime/api",
 }

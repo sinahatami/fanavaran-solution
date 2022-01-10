@@ -1,4 +1,4 @@
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/body/login.component'
 import { Routes, RouterModule } from '@angular/router'
 
 export const routes: Routes = [

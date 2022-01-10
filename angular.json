@@ -64,6 +64,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "fanavaran-web-app:build",
+            "ssl": true,
+            "proxyConfig": "proxy.config.js"
+          },
           "configurations": {
             "production": {
               "browserTarget": "fanavaran-web-app:build:production"
