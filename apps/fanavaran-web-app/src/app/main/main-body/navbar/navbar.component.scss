@@ -1,0 +1,110 @@
+.navbar {
+    background-color: #89ffc3;
+}
+
+.fa-sort-down {
+    margin-right: 4px;
+    position: absolute;
+}
+  
+.drop-btn {
+    direction: rtl;
+    text-align: right;
+}
+  
+.span-btn {
+    margin-right: 8px;
+}
+  
+.notification {
+    font-size: 9px;
+}
+  
+.navbar {
+    height: 18px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+  
+.customizer-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 7px;
+    width: auto;
+    z-index: 10;
+}
+  
+.color-options {
+    a {
+      white-space: pre;
+  }
+}
+  
+.header-text {
+    margin-right: 18px;
+}
+  
+::ng-deep .mat-slide-toggle-content {
+    font-family: iransans;
+    margin-right: 7px;
+}
+  
+::ng-deep .mat-radio-label-content {
+    font-family: iransans;
+    margin-right: 7px;
+}
+  
+::ng-deep .mat-radio-group {
+    margin-right: 18px;
+}
+  
+.collapse {
+    display: unset !important;
+}
+  
+.navbar-expand-lg,
+.navbar-nav {
+    flex-direction: row !important;
+}
+  
+.navbar-container {
+    margin-left: 12px;
+}  
+  
+.navbar-container {
+    width: 100% !important;
+}
+  
+.navbar-nav,
+.nav-link {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5re m!important;
+    margin-top: 2px
+}
+  
+.header-title {
+    float: right;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+  
+  @media (max-width: 992px) {
+  .header-title {
+      display: none !important;
+  }
+}
+  
+.navbar-expand-lg {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+  
+li a {
+    padding-right: unset !important;
+    padding-left: unset !important;
+}
+  
+.nav-item {
+    margin-left: 10px !important;
+}
