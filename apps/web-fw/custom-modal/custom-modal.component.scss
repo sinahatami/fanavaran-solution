@@ -1,0 +1,43 @@
+.modal-header {
+  direction: ltr;
+  cursor: move;
+}
+
+::ng-deep .nsm-content {
+  padding: unset !important;
+}
+
+hr {
+  margin: unset !important;
+}
+
+.body-modal {
+  margin-top: 15px;
+}
+
+.modal-header {
+  background: rgb(243 243 243);
+  height: 42px;
+}
+
+.close-button {
+  margin-top: 5px;
+}
+
+.modal-header-title {
+  margin-top: 5px;
+  color: black;
+}
+
+.save-btn {
+  margin-left: 5px;
+}
+
+h3 {
+  margin-bottom: unset !important;
+  margin: unset !important;
+}
+  
+.fa-close {
+  color: black;
+} 

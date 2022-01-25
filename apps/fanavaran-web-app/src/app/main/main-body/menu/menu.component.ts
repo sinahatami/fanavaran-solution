@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { MainMenu } from '../../main.menu'
+import { IMenu, IMenuItem } from './IMenu'
 
 @Component({
   selector: 'fanavaran-solution-menu',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  menuList: IMenu[] = MainMenu.menu
 
-  ngOnInit(): void {
+  clickMenuItem(menuList: IMenuItem) {
+    menuList.path ? this.router.navigateByUrl(menuList.path) : null
   }
+
+  constructor(private router: Router) { }
+
+  ngOnInit(): void { }
 
 }

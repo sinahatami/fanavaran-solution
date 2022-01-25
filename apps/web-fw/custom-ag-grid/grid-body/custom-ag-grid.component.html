@@ -1,0 +1,25 @@
+<div style="overflow-y: hidden !important;">
+  <div *ngIf="gridOption?.rowData?.length > 0 && !isModal" style="direction: ltr; text-align: left !important"
+    class="row-12">
+    <select [disabled]="disabledForm" [ngModel]="rowNumber" (ngModelChange)="onPageSizeChanged($event)">
+      <option [value]="10" selected="">10</option>
+      <option [value]="20" [disabled]="gridOption && gridOption.rowData && gridLen < 20">20</option>
+      <option [value]="30" [disabled]="gridOption && gridOption.rowData && gridLen < 30">30</option>
+      <option [value]="50" [disabled]="gridOption && gridOption.rowData && gridLen < 50">50</option>
+      <option [value]="100" [disabled]="gridOption && gridOption.rowData && gridLen < 100">100</option>
+    </select>
+    <label>
+      تعداد کل :
+      <span>
+        {{(gridOption && gridOption.rowData &&
+        gridLen>0)?gridLen:0}}
+      </span>
+      | تعداد سطر ها
+    </label>
+  </div>
+
+  <div #divGrid>
+    <ag-grid-angular #grid class="ag-theme-material" [class.disabled-form]="disabledForm" [gridOptions]="gridOption">
+    </ag-grid-angular>
+  </div>
+</div>

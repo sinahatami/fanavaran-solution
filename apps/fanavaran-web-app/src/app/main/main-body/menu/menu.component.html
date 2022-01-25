@@ -1,1 +1,39 @@
-<p>menu works!</p>
+<div class="div-menu">
+  <ng-container *ngFor="let menuMainItem of menuList; let i = index">
+    <ng-container *ngFor="let menuItem of menuMainItem.menuItem; let i = index">
+      <button *ngIf="menuItem.child.length > 0" dir="rtl" mat-button [matMenuTriggerFor]="firstSubLevel"
+        (click)="clickMenuItem(menuItem)">{{
+        menuItem.farsiName }}</button>
+      <button *ngIf="menuItem.child.length == 0" dir="rtl" mat-button>{{ menuItem.farsiName }}</button>
+      <mat-menu dir="rtl" #firstSubLevel="matMenu">
+        <ng-container *ngFor="let menuItemFirstSubLevel of menuItem.child">
+
+          <button dir="rtl" *ngIf="menuItemFirstSubLevel.child.length > 0" [matMenuTriggerFor]="secondSubLevel"
+            mat-menu-item>{{ menuItemFirstSubLevel.farsiName }}</button>
+          <button dir="rtl" mat-menu-item (click)="clickMenuItem(menuItemFirstSubLevel)">{{
+            menuItemFirstSubLevel.farsiName }}</button>
+
+          <mat-menu dir="rtl" #secondSubLevel="matMenu">
+            <ng-container *ngFor="let menuItemSecondSubLevel of menuItemFirstSubLevel.child">
+              <button dir="rtl" *ngIf="menuItemSecondSubLevel.child.length > 0" [matMenuTriggerFor]="secondSubLevel"
+                mat-menu-item>{{ menuItemSecondSubLevel.farsiName }}</button>
+              <button dir="rtl" mat-menu-item (click)="clickMenuItem(menuItemSecondSubLevel)">{{
+                menuItemSecondSubLevel.farsiName }}</button>
+
+              <mat-menu dir="rtl" #thirdSubLevel="matMenu">
+                <ng-container *ngFor="let menuItemThirdSubLevel of menuItemSecondSubLevel.child">
+                  <button dir="rtl" *ngIf="menuItemThirdSubLevel.child.length > 0" [matMenuTriggerFor]="thirdSubLevel"
+                    mat-menu-item>{{ menuItemThirdSubLevel.farsiName }}</button>
+                  <button dir="rtl" mat-menu-item (click)="clickMenuItem(menuItemThirdSubLevel)">{{
+                    menuItemThirdSubLevel.farsiName }}</button>
+                </ng-container>
+              </mat-menu>
+            </ng-container>
+          </mat-menu>
+
+        </ng-container>
+      </mat-menu>
+    </ng-container>
+
+  </ng-container>
+</div>
